@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jan 11 15:29:32 2021
+
+"""
+
+import pandas as pd
+import glob
+import csv
+import pathlib
+
+path = "\\Enter\\the\\path\\here"
+
+output = open('output.csv','w',newline='')
+writer = csv.writer(output)
+writer.writerow(['Suffix','File Path'])
+#yes = glob.glob(path + "/**/*.txt", recursive = True)
+filetype_list = ["/**/*.jar","/**/*.cfg"]
+yes = [glob.glob(path+e,recursive = True) for e in filetype_list]
+
+for i in yes:
+    for j in i:
+        print(pathlib.PurePosixPath(j).suffix,j)
+        writer.writerow([pathlib.PurePosixPath(j).suffix,j])
+output.close()
